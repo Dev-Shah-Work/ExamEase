@@ -16,8 +16,12 @@ public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int test_score;
-    private Timestamp attempt_time;
+    @Column(name = "test_score")
+    private int testScore;
+    @Column(name = "attempt_time")
+    private Timestamp attemptTime;
+    @Column(name = "completion_time")
+    private Timestamp completionTime;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "test_id_fk")
     private List<Response> responses;

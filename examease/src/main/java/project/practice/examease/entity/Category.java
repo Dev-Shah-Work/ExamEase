@@ -16,7 +16,8 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String category_text;
+    @Column(name = "category_text")
+    private String categoryText;
 
 
 @OneToMany(mappedBy = "category")

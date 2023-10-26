@@ -16,14 +16,20 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int point;
-    private String question_text;
+    @Column(name = "is_mcq")
+    private boolean isMcq;
+    @Column(name = "question_text")
+    private String questionText;
     private byte[] img;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id_fk")
+    @JoinColumn(name = "question_id")
     private List<Option> options;
-    @OneToOne(mappedBy = "question",cascade = CascadeType.ALL)
-    private Answer answer;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id_fk")
     private List<Response> responses;
+    @OneToOne
+    @JoinColumn(name = "answer_id")
+    private Option answer;
+    @JoinColumn(name = "answer_text")
+    private String answerText;
 }
