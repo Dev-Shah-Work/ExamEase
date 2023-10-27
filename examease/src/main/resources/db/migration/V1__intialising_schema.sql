@@ -1,0 +1,82 @@
+--CREATE TABLE category (
+--    id SERIAL PRIMARY KEY,
+--    category_text VARCHAR(255) NOT NULL
+--);
+--
+--CREATE TABLE subcategory (
+--    id SERIAL PRIMARY KEY,
+--    subcategory_text VARCHAR(255) NOT NULL,
+--    category_id_fk INT,
+--    foreign key(category_id_fk)  REFERENCES category (id)
+--);
+--
+--CREATE TABLE _user (
+--    id SERIAL PRIMARY KEY,
+--    firstname VARCHAR(255),
+--    lastname VARCHAR(255),
+--    email VARCHAR(255) NOT NULL,
+--    password VARCHAR(255) NOT NULL,
+--    phone_no VARCHAR(20),
+--    role VARCHAR(50)
+--);
+--
+--
+--CREATE TABLE quiz (
+--    id SERIAL PRIMARY KEY,
+--    duration INT NOT NULL,
+--    difficulty VARCHAR(255),
+--    subcategory_id_fk INT ,
+--    quiz_maker_id INT ,
+--    foreign key(subcategory_id_fk) REFERENCES subcategory (id),
+--    foreign key(quiz_maker_id) REFERENCES _user (id)
+--);
+--CREATE TABLE question (
+--    id SERIAL PRIMARY KEY,
+--    point INT NOT NULL,
+--    is_mcq BOOLEAN NOT NULL,
+--    question_text varchar,
+--    img BYTEA,
+--    answer_id INT,
+--    answer_text varchar,
+--    quiz_id int,
+--    foreign key(answer_id) references _option(id),
+--    foreign key(quiz_id) references quiz(id)
+--);
+--
+--CREATE TABLE _option (
+--    id SERIAL PRIMARY KEY,
+--    question_id INT,
+--    option_text VARCHAR(255) NOT NULL,
+--    foreign key(question_id) references question(id)
+--);
+--
+--CREATE TABLE test (
+--    id SERIAL PRIMARY KEY,
+--    test_score INT NOT NULL,
+--    attempt_time TIMESTAMP,
+--    completion_time TIMESTAMP,
+--    quiz_id_fk INT ,
+--    quiz_taker_id int,
+--    foreign key(quiz_id_fk) REFERENCES quiz (id),
+--    foreign key(quiz_taker_id) references _user(id)
+--);
+--
+--CREATE TABLE response (
+--    id SERIAL PRIMARY KEY,
+--    score INT NOT NULL,
+--    response_text varchar,
+--    response_id INT ,
+--    quiz_taker_id int,
+--    question_id_fk int,
+--    test_id_fk int,
+--    foreign key(test_id_fk) references test(id),
+--    foreign key(question_id_fk) references question(id),
+--    foreign key(quiz_taker_id) references _user(id),
+--    foreign key(response_id) REFERENCES _option (id)
+--);
+--
+--
+--
+--
+insert into category(category_text) values('DemoCategory');
+
