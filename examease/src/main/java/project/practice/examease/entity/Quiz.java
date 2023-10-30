@@ -23,7 +23,7 @@ public class Quiz {
     private Subcategory subcategory;
     @ManyToOne
     @JoinColumn(name="quiz_maker_id")
-    private User user;
+    private AppUser user;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_id_fk")
     private List<Test> tests;

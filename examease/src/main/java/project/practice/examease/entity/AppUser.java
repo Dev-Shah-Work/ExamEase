@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
