@@ -1,0 +1,169 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Comic+Neue&family=Kdam+Thmor+Pro&family=Sometype+Mono:ital@1&display=swap"
+  rel="stylesheet"
+/>
+<div id="root" class="d-flex justify-content-center align-items-center">
+  <mat-card
+    style="padding: 10px; width: 500px; height: 50%; border-radius: 10px"
+    *ngIf="!doUpdate"
+  >
+    <h1 class="heading" style="font-family: 'Kdam Thmor Pro', sans-serif">
+      Your Profile Details
+    </h1>
+    <mat-card-content style="height: 100%">
+      <div class="row" style="height: 100%">
+        <div class="col-md-10 offset-md-1">
+          <table
+            class="table"
+            style="justify-content: space-evenly; height: 95%"
+          >
+            <tr style="background-color: lightgray">
+              <td>Id</td>
+              <td>{{ userInformation.id }}</td>
+            </tr>
+            <tr>
+              <td>First Name</td>
+              <td>{{ userInformation.firstname }}</td>
+            </tr>
+            <tr style="background-color: lightgray">
+              <td>Last Name</td>
+              <td>{{ userInformation.lastname }}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{ userInformation.email }}</td>
+            </tr>
+            <tr style="background-color: lightgray">
+              <td>Phone Number</td>
+              <td>{{ userInformation.phoneNo }}</td>
+            </tr>
+            <tr>
+              <td>Role</td>
+              <td>{{ userInformation.role }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+    <button class="btn btn-primary" (click)="onUpdate()">Update Details</button>
+  </mat-card>
+  <div
+    id="formDiv"
+    class="border border-secondary p-3 rounded-4"
+    *ngIf="doUpdate"
+  >
+    <form [formGroup]="reactiveForm" (ngSubmit)="onUpdateDetails()">
+      <div class="mb-3">
+        <label for="inputfirstname" class="form-label">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputfirstname"
+          aria-describedby="emailHelp"
+          formControlName="firstname"
+        />
+        <small
+          *ngIf="
+                reactiveForm.get('firstname').errors?.['required'] &&
+                reactiveForm.get('firstname').touched
+              "
+          style="color: red; font-size: small"
+          >Firstname is required field</small
+        >
+        <small
+          *ngIf="
+                reactiveForm.get('firstname').errors?.['noSpaceAllowed']
+              "
+          style="color: red; font-size: small"
+          >Space not allowed</small
+        >
+      </div>
+      <div class="mb-3">
+        <label for="inputlastname" class="form-label">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputlastname"
+          aria-describedby="emailHelp"
+          formControlName="lastname"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="inputEmail"
+          aria-describedby="emailHelp"
+          formControlName="email"
+        />
+        <small
+          *ngIf="
+                reactiveForm.get('email').errors?.['required'] &&
+                reactiveForm.get('email').touched
+              "
+          style="color: red; font-size: small"
+          >Email is required field</small
+        >
+        <small
+          *ngIf="
+              reactiveForm.get('email').errors?.['email'] &&
+              reactiveForm.get('email').touched
+            "
+          style="color: red; font-size: small"
+          >Invalid Email Format</small
+        >
+      </div>
+
+      <div class="mb-3">
+        <label for="inputphoneNo" class="form-label">Phone Number</label>
+        <input
+          class="form-control"
+          id="inputphoneNo"
+          formControlName="phoneNo"
+        />
+        <small
+          *ngIf="
+              reactiveForm.get('phoneNo').errors?.['noSpaceAllowed']
+            "
+          style="color: red; font-size: small"
+          >Space not allowed</small
+        >
+        <small
+          *ngIf="
+            reactiveForm.get('phoneNo').errors?.['maxlength']
+          "
+          style="color: red; font-size: small"
+          >Max length of 10 digit allowed</small
+        >
+        <small
+          *ngIf="
+            reactiveForm.get('phoneNo').errors?.['pattern']
+          "
+          style="color: red; font-size: small"
+          >Type 10 digit number</small
+        >
+      </div>
+      <div class="container">
+        <div class="d-flex flex-row" style="justify-content: space-between">
+          <div class="d-flex flex-row">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="reactiveForm.invalid"
+            >
+              Update Details
+            </button>
+          </div>
+          <div class="d-flex flex-row" style="align-items: center">
+            <button class="btn btn-primary" (click)="goBackClicked()">
+              Go Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

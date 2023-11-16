@@ -6,6 +6,8 @@ import { noSpaceAllowed } from 'src/app/Validators/NoSpaceAllowed.validator';
 import AppUser from 'src/app/model';
 import { UserService } from 'src/app/service/user.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor(private userService:UserService){}
+
+  constructor(private userService:UserService,private router:Router){}
   ngOnInit() {
     this.reactiveForm = new FormGroup({
       firstname: new FormControl(null, [Validators.required, noSpaceAllowed]),
@@ -24,25 +27,40 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(7),
         noSpaceAllowed,
       ]),
+      confirmPassword:new FormControl(null,[Validators.required]),
       phoneNo: new FormControl(null, [Validators.pattern('[0-9]{10}')]),
-      role: new FormControl('student', [Validators.required]),
+      role: new FormControl('user'),
     });
   }
   reactiveForm: FormGroup;
   userDetails: AppUser;
   onSubmit() {
+    let {confirmPassword}=this.reactiveForm.value;
+    delete this.reactiveForm.value.confirmPassword;
+    console.log(this.reactiveForm.value)
     this.userDetails = this.reactiveForm.value;
-    var email = this.userDetails.email.toLowerCase();
+    console.log(this.userDetails)
+    if(this.userDetails.password==confirmPassword){var email = this.userDetails.email.toLowerCase();
     this.userDetails.email = email;
     console.log(this.userDetails)
     this.userService.addUser(this.userDetails).subscribe({
       next:data=>{
         console.log(data)
+        if(data){
+          alert("Registration Successful")
+          this.router.navigate([''])
+        }
       },
       error:(err:HttpErrorResponse)=>{
-        console.log(err)
+        window.alert(err.error.message)
       }
-    });
+      });
+    }
+    else{
+      alert("Password mismatch")
+      
+      
+    }
     
 
   }

@@ -1,14 +1,104 @@
-<div id="bg" class="container-fluid d-flex justify-content-center align-items-center">
-    <div id="insideBox" class="container d-flex justify-content-between align-items-center m-auto rounded-4 flex-md-row flex-sm-column" >
-   <div class="container">
-    <p class="mx-4 my-4 fs-3" style="color:#007dfe">
-        Exams Redefined,
-         Excellence Refined <br> Join the Journey.
-    </p>
-    <div id="btn" class="btn btn-outline-primary btn-lg mx-4 " [routerLink]="['/register']" >Get Started</div>
-   </div>
-   <div class="container">
-    <img id="exam-img" src="../../assets/8262066.jpg" alt="Image attached">
-   </div>
+<div
+  id="bg"
+  class="container-fluid d-flex justify-content-center align-items-center"
+>
+  <div
+    id="insideBox"
+    class="container d-flex justify-content-between align-items-center m-auto rounded-4 flex-md-row flex-sm-column"
+  >
+    <div class="container" *ngIf="!loginFlag">
+      <p class="mx-4 my-4 fs-3" style="color: #007dfe">
+        Exams Redefined, Excellence Refined 
+        <br>
+        <br>
+        Join the Journey.
+      </p>
+      <div
+        id="btn"
+        class="btn btn-outline-primary btn-lg mx-4"
+        (click)="getStartedClicked()"
+      >
+        Get Started
+      </div>
     </div>
+    <div
+      id="insideBox"
+      *ngIf="loginFlag"
+      class="container d-flex justify-content-between align-items-center m-auto rounded-4 flex-md-row flex-sm-column"
+    >
+      <div class="container">
+        <div id="formDiv" class="border border-secondary p-3 rounded-4">
+          <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="inputEmail" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="inputEmail"
+                aria-describedby="emailHelp"
+                formControlName="email"
+              />
+              <small
+                *ngIf="
+                 reactiveForm.get('email').errors?.['required']&&
+                 reactiveForm.get('email').touched
+               "
+                style="color: red; font-size: small"
+                >Email is required field</small
+              >
+              <small
+                *ngIf="
+                 reactiveForm.get('email').errors?.['email'] &&
+                 reactiveForm.get('email').touched
+               "
+                style="color: red; font-size: small"
+                >Invalid Email Format</small
+              >
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="inputPassword"
+                formControlName="password"
+              />
+              <small
+                *ngIf="
+                 reactiveForm.get('password').errors?.['required'] &&
+                 reactiveForm.get('password').touched
+               "
+                style="color: red; font-size: small"
+                >Password is required field</small
+              >
+              
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="reactiveForm.invalid"
+            >
+              Login
+            </button>
+          </form>
+          <br />
+          <div
+            class="d-flex justify-content-between align-items-center"
+            id="custom-link"
+          >
+            <a routerLink="/register" style="text-decoration: none"
+              >New User? Click here to Register</a
+            >
+            <button class="btn btn-outline-primary">
+              <span (click)="goBackClicked()" style="text-decoration: none">Go Back</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <img id="exam-img" src="../../assets/8262066.jpg" alt="Image attached" />
+    </div>
+  </div>
 </div>

@@ -1,5 +1,6 @@
 package project.practice.examease.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,13 +24,17 @@ public class AppUser {
     @Column(name = "phone_no")
     private String phoneNo;
     private String role;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "quiz_taker_id_fk")
     private List<Response> responses;
-    @OneToMany(mappedBy = "user")
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Quiz> quizzes;
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "quiz_taker_id_fk")
     private List<Test> tests;
+
 
 }

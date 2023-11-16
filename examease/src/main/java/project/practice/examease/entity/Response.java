@@ -1,5 +1,6 @@
 package project.practice.examease.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +19,6 @@ public class Response {
     private String responseText;
     @OneToOne
     @JoinColumn(name = "response_id")
+    @JsonIgnore
     private Option responseId;
 }

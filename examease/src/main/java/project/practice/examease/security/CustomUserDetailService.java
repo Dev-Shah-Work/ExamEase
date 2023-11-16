@@ -16,17 +16,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
-    @Autowired
-    AppUserRepository appUserRepository;
+    private final AppUserRepository appUserRepository;
 
+    public CustomUserDetailService(AppUserRepository appUserRepository){
+        this.appUserRepository = appUserRepository;
+    }
+
+    AppUser appUser;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String userName, password = null;
         List<GrantedAuthority> authorities = null;
-        AppUser appUser = appUserRepository.findByEmail(username);
+        appUser = appUserRepository.findByEmail(username);
+        System.out.println("from customer"+ appUser);
         if (appUser == null) {
+
             throw new UsernameNotFoundException("UserDetails not found");
         } else {
             userName = appUser.getEmail();
@@ -36,5 +41,8 @@ public class CustomUserDetailService implements UserDetailsService {
             return new User(username, password, authorities);
         }
 
+    }
+    public AppUser getUserDetail(){
+        return appUser;
     }
 }

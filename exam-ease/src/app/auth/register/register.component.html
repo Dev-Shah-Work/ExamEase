@@ -94,6 +94,23 @@
         >
       </div>
       <div class="mb-3">
+        <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputConfirmPassword"
+          formControlName="confirmPassword"
+        />
+        <small
+          *ngIf="
+            reactiveForm.get('confirmPassword').errors?.['required'] &&
+            reactiveForm.get('confirmPassword').touched
+          "
+          style="color: red; font-size: small"
+          >Confirm Password is required field</small
+        >
+      </div>
+      <div class="mb-3">
         <label for="inputphoneNo" class="form-label">Phone Number</label>
         <input
           class="form-control"
@@ -122,15 +139,13 @@
           >Type 10 digit number</small
         >
       </div>
-      <div class="mb-3">
+      <div class="mb-3" style="display: none;">
         <select
           class="p-2 border-2 border-gray-500 rounded-3 focus:outline-none container-fluid"
           name="role"
           formControlName="role"
         >
-          <option value="" disabled>Choose Role</option>
-          <option value="student">{{ "student" | titlecase }}</option>
-          <option value="instructor">{{ "instructor" | titlecase }}</option>
+          <option value="user"></option>
         </select>
       </div>
 
@@ -141,7 +156,7 @@
       class="d-flex justify-content-between align-items-center"
       id="custom-link"
     >
-      <a routerLink="/login" style="text-decoration: none"
+      <a routerLink="/" style="text-decoration: none"
         >Already a User? Click here to Login</a
       >
       <button class="btn btn-outline-primary">

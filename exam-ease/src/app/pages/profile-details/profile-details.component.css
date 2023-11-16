@@ -1,0 +1,27 @@
+#root {
+  background-image: url("../../../assets/bgimg3.jpg");
+  background-size: cover;
+  height: 92.7vh;
+  width: 100vw;
+  font-family: 'Comic Neue', cursive;
+}
+.table tr td {
+  margin-left: 2px;
+  margin-bottom: 2px;
+  padding: 5px;
+  font-size: 1.5em;
+  
+}
+
+.heading {
+  text-align: center;
+}
+#formDiv {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 25vw;
+}
+input.ng-invalid.ng-touched {
+  border: 2px solid red;
+}
