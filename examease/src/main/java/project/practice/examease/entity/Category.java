@@ -1,12 +1,13 @@
 package project.practice.examease.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -20,8 +21,25 @@ public class Category {
     private String categoryText;
 
 
-@OneToMany(mappedBy = "category")
-private List<Subcategory> subcategories;
+//    @Override
+//    public String toString() {
+//        return "Category{" +
+//                "id=" + id +
+//                ", categoryText='" + categoryText + '\'' +
+//                ", subcategories=" + subcategories +
+//                '}';
+//    }
 
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    private List<Subcategory> subcategories = new ArrayList<>();
+//    private Set<Subcategory> subcategories= new LinkedHashSet<>();
+
+//    public List<Subcategory> getSubcategories() {
+//        return subcategories;
+//    }
+//
+//    public void setSubcategories(List<Subcategory> subcategories) {
+//        this.subcategories = subcategories;
+//    }
 }
 

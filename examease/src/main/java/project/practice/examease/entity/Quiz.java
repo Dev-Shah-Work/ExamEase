@@ -1,5 +1,6 @@
 package project.practice.examease.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +24,12 @@ public class Quiz {
     private Subcategory subcategory;
     @ManyToOne
     @JoinColumn(name="quiz_maker_id")
+//    @JsonIgnore
     private AppUser user;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "quiz_id_fk")
     private List<Test> tests;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "quiz_id_fk")
     private List<Question> questions;
 

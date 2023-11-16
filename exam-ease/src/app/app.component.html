@@ -1,3 +1,6 @@
 <div>
+  <ng-container *ngIf="isNavbarShowing()">
+    <app-navbar></app-navbar>
+  </ng-container>
   <router-outlet></router-outlet>
 </div>
