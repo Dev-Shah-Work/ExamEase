@@ -22,6 +22,18 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { ClickHighlightDirective } from './Directives/click-highlight.directive';
+import {MatDialogModule} from '@angular/material/dialog';
+
+import { ShowQuizComponent } from './pages/show-quiz/show-quiz.component';
+
+
+
 
 
 
@@ -37,6 +49,8 @@ import {MatInputModule} from '@angular/material/input';
     AddQuizComponent,
     AttemptQuizComponent,
     ProfileDetailsComponent,
+    ClickHighlightDirective,
+    ShowQuizComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +61,12 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatRadioModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule,
+    MatSidenavModule,
+    MatDialogModule,
 
     HttpClientModule,
     JwtModule.forRoot({

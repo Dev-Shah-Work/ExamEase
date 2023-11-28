@@ -10,6 +10,7 @@ import { AttemptQuizComponent } from './pages/attempt-quiz/attempt-quiz.componen
 import { PageGuard } from './route-guard/page.guard';
 import { AuthGuard } from './route-guard/auth.guard';
 import { ProfileDetailsComponent } from './pages/profile-details/profile-details.component';
+import { ShowQuizComponent } from './pages/show-quiz/show-quiz.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, canActivate: [AuthGuard] },
@@ -32,10 +33,15 @@ const routes: Routes = [
     canActivate: [PageGuard],
   },
   {
-    path:'profile-details',
-    component:ProfileDetailsComponent,
-    canActivate:[PageGuard]
-  }
+    path: 'profile-details',
+    component: ProfileDetailsComponent,
+    canActivate: [PageGuard],
+  },
+  {
+    path: 'show-quiz',
+    component: ShowQuizComponent,
+    canActivate: [PageGuard],
+  },
 ];
 
 @NgModule({

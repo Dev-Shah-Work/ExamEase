@@ -1,0 +1,30 @@
+#root {
+  background-image: url("../../../assets/bgimg3.jpg");
+  background-size: cover;
+  height: 93.2vh;
+  width: 100vw;
+  font-family: "Kdam Thmor Pro", sans-serif;
+}
+.example-full-width {
+  width: 100%;
+}
+#quiz-card-list span {
+  color: white;
+  font-family: "Comic Neue", cursive;
+  font-size: large;
+  font-weight: bold;
+}
+.example-quiz-card.even {
+  background-color: #349aff;
+}
+.example-quiz-card.odd {
+  background-color: #89a8da;
+}
+.subcategory-item {
+  font-family: 'Comic Neue', cursive;
+  font-size: large;
+  font-weight: bold;
+}
+.subcategory-list-text.selected{
+    background-color: #349aff;
+}
