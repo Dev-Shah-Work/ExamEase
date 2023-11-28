@@ -25,7 +25,7 @@ public class Subcategory {
     @JoinColumn(name = "category_id_fk")
     @JsonIgnore
     private Category category;
-    @OneToMany(mappedBy = "subcategory",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "subcategory",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Quiz> quizzes;
 

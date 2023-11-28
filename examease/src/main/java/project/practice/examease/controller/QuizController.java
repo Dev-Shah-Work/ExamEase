@@ -10,6 +10,9 @@ import project.practice.examease.entity.Quiz;
 import project.practice.examease.service.QuizService;
 import project.practice.examease.util.ResponseUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -36,5 +39,24 @@ public class QuizController {
             ex.printStackTrace();
         }
         return new ResponseEntity<>(new Quiz(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @GetMapping("/quizes/subcategory/{id}")
+    public ResponseEntity<List<Quiz>> getQuizBySubcategoryId(@PathVariable("id")Integer id){
+        try{
+            return quizService.getQuizBySubcategoryId(id);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @GetMapping("/quizes")
+    public ResponseEntity<List<Quiz>> getQuizes(){
+        try{
+            return quizService.getQuizes();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 }

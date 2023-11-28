@@ -21,25 +21,9 @@ public class Category {
     private String categoryText;
 
 
-//    @Override
-//    public String toString() {
-//        return "Category{" +
-//                "id=" + id +
-//                ", categoryText='" + categoryText + '\'' +
-//                ", subcategories=" + subcategories +
-//                '}';
-//    }
-
+//
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Subcategory> subcategories = new ArrayList<>();
-//    private Set<Subcategory> subcategories= new LinkedHashSet<>();
-
-//    public List<Subcategory> getSubcategories() {
-//        return subcategories;
-//    }
 //
-//    public void setSubcategories(List<Subcategory> subcategories) {
-//        this.subcategories = subcategories;
-//    }
 }
 

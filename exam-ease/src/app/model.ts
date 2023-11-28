@@ -6,26 +6,27 @@ export default interface AppUser {
   phoneNo: String;
   role: String;
 }
-interface SubcategoryId {
+export interface SubcategoryId {
   id: Number;
 }
-interface UserId {
+export interface UserId {
   id: Number;
 }
-interface Option {
+export interface Option {
   optionText: String;
 }
-interface Question {
+export interface Question {
   point: Number;
   questionText: String;
   img: any;
   options: Option[];
   responses: any;
+  answerText:String;
   answer: Option;
-  mcq: Boolean;
+  isMcq: Boolean;
 }
 
-export default interface Quiz {
+export  interface Quiz {
   difficulty: String;
   duration: Number;
   subcategory: SubcategoryId;
