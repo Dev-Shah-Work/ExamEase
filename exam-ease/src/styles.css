@@ -1,19 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+/* src/styles.css */
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 ::-webkit-scrollbar-thumb {
-    background-color: #007dfe;
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: #D5D9F7;
-    border-radius: 7px;
-  }
-  ::-webkit-scrollbar {
-    width: 6px;
-    background-color: #007dfe;
-    border-radius: 7px;
-  }
+  background-color: #007dfe;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #d5d9f7;
+  border-radius: 7px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #007dfe;
+  border-radius: 7px;
+}

@@ -33,4 +33,5 @@ public class Quiz {
     @JoinColumn(name = "quiz_id_fk")
     private List<Question> questions;
 
+
 }

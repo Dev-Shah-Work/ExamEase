@@ -38,4 +38,11 @@ export class QuizService {
       },
     } )
   }
+  getQuizById(id:Number){
+    return this.http.get(this.baseURL+`/quizes/${id}`,{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    } )
+  }
 }

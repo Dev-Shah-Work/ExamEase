@@ -1,1 +1,48 @@
-<p>show-quiz works!</p>
+<div class="container-fluid" id="root">
+  <div class="row p-2">
+    <div class="col-3">
+      <mat-card style="background-color: #00A9FF">
+        <mat-card-content>Simple card</mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-7" style="max-height: 87vh; overflow-y: scroll">
+      <form [formGroup]="responseForm">
+          <ng-container *ngFor="let questionGroup of responseForm.get('responses')['controls']; let i = index">
+            <mat-card style="background-color: #A0E9FF">
+              <mat-card-content>{{i+1}}:- {{ questions[i].questionText }}</mat-card-content>
+            </mat-card>
+            <mat-divider></mat-divider>
+            <ng-container>
+              <mat-card style="background-color: #A0E9FF">
+                <mat-card-content>
+                  <ng-container *ngIf="questions[i].mcq">
+                    <mat-radio-group aria-label="Select an option">
+                      <ng-container *ngFor="let option of questions[i].options">
+                        <mat-radio-button value="{{ option.id }}">{{
+                          option.optionText
+                        }}</mat-radio-button>
+                      </ng-container>
+                    </mat-radio-group>
+                  </ng-container>
+                  <ng-container *ngIf="!questions[i].mcq">
+                    <mat-form-field>
+                      <textarea
+                        matInput
+                        placeholder="Type your answer here"
+                      ></textarea>
+                    </mat-form-field>
+                  </ng-container>
+                </mat-card-content>
+              </mat-card>
+            </ng-container>
+            <br />
+          </ng-container>
+      </form>
+    </div>
+    <div class="col-2">
+      <mat-card style="background-color: #00A9FF">
+        <mat-card-content>Simple card</mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

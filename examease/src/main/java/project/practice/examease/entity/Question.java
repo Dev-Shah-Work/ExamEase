@@ -34,4 +34,12 @@ public class Question {
     private Option answer;
     @JoinColumn(name = "answer_text")
     private String answerText;
+
+    public boolean isMcq() {
+        return isMcq;
+    }
+
+    public void setIsMcq(boolean mcq) {
+        isMcq = mcq;
+    }
 }

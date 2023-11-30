@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import project.practice.examease.entity.Option;
-import project.practice.examease.entity.Question;
-import project.practice.examease.entity.Quiz;
+import project.practice.examease.dto.TestDto;
+import project.practice.examease.entity.*;
+import project.practice.examease.mapper.TestMapper;
+import project.practice.examease.repo.AppUserRepository;
 import project.practice.examease.repo.QuizRepository;
+import project.practice.examease.repo.TestRepository;
 import project.practice.examease.service.QuizService;
 import project.practice.examease.util.ResponseUtil;
 
@@ -22,7 +24,12 @@ import java.util.Optional;
 public class QuizServiceImpl implements QuizService {
     @Autowired
     private final QuizRepository quizRepository;
-
+    @Autowired
+    private final TestMapper testMapper;
+    @Autowired
+    private final TestRepository testRepository;
+    @Autowired
+    private final AppUserRepository appUserRepository;
 
     @Override
     @Transactional
@@ -46,7 +53,7 @@ public class QuizServiceImpl implements QuizService {
                 for (Question question : dummyQuiz.getQuestions()) {
 
                     String currentAnswer = answers.get(index);
-                    if(question.getOptions()!=null) {
+                    if (question.getOptions() != null) {
                         Optional<Option> result = question.getOptions().stream()
                                 .filter(option -> (option.getOptionText() != null) && currentAnswer.equals(option.getOptionText()))
                                 .findFirst();
@@ -56,7 +63,7 @@ public class QuizServiceImpl implements QuizService {
                         } else {
                             question.setAnswer(null);
                         }
-                    }else{
+                    } else {
                         question.setAnswer(null);
                     }
                     index++;
@@ -90,32 +97,60 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public ResponseEntity<List<Quiz>> getQuizBySubcategoryId(Integer id) {
-        try{
-            if(id!=null&& quizRepository.findBySubcategory_Id(id).isPresent()){
-                List<Quiz> quizes=quizRepository.findBySubcategory_Id(id).get();
+        try {
+            if (id != null && quizRepository.findBySubcategory_Id(id).isPresent()) {
+                List<Quiz> quizes = quizRepository.findBySubcategory_Id(id).get();
 //                System.out.println(quizes);
-                return new ResponseEntity<>(quizes,HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(quizes, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     public ResponseEntity<List<Quiz>> getQuizes() {
-        try{
-            List<Quiz> quizzes=quizRepository.findAll();
-            if (quizzes.isEmpty()){
-                return new ResponseEntity<>(new ArrayList<>(),HttpStatus.NOT_FOUND);
+        try {
+            List<Quiz> quizzes = quizRepository.findAll();
+            if (quizzes.isEmpty()) {
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(quizzes,HttpStatus.OK);
-        }catch (Exception ex){
+            return new ResponseEntity<>(quizzes, HttpStatus.OK);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<String> addTest(TestDto requestBody) {
+        try {
+            if (requestBody != null) {
+                Test dummyTest = testMapper.dtoToEntity(requestBody);
+                Test finalTest = testRepository.save(dummyTest);
+                Quiz quiz = quizRepository.findById(requestBody.getQuizId()).get();
+                List<Test> quizTests = quiz.getTests();
+                quizTests.add(finalTest);
+                quiz.setTests(quizTests);
+                quizRepository.save(quiz);
+                AppUser appUser = appUserRepository.findById(requestBody.getQuizTakerId()).get();
+                List<Test> userTests = appUser.getTests();
+                userTests.add(finalTest);
+                appUser.setTests(userTests);
+                appUserRepository.save(appUser);
+                return ResponseUtil.getResponseEntity("Adding Test Successful", HttpStatus.OK);
+
+            } else {
+                return ResponseUtil.getResponseEntity("Pass a non null request body", HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return ResponseUtil.getResponseEntity("Error in service portion", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
