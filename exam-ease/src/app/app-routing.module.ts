@@ -38,7 +38,7 @@ const routes: Routes = [
     canActivate: [PageGuard],
   },
   {
-    path: 'show-quiz',
+    path: 'show-quiz/:id',
     component: ShowQuizComponent,
     canActivate: [PageGuard],
   },

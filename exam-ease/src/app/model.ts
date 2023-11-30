@@ -21,16 +21,32 @@ export interface Question {
   img: any;
   options: Option[];
   responses: any;
-  answerText:String;
+  answerText: String;
   answer: Option;
   isMcq: Boolean;
 }
 
-export  interface Quiz {
+export interface Quiz {
   difficulty: String;
   duration: Number;
   subcategory: SubcategoryId;
   user: UserId;
   tests: any;
   questions: Question[];
+}
+export interface Response {
+  score: Number;
+  responseText: String;
+  responseId: {
+    id:Number
+  };
+  questionId:Number;
+}
+export interface Test {
+  testScore: Number;
+  attemptTime: Number;
+  completionTime: Number;
+  responses: Response[];
+  quizTakerId: Number;
+  quizId: Number;
 }

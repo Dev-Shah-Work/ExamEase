@@ -204,6 +204,7 @@ export class AddQuizComponent implements OnInit {
     }
     this.questions.push(this.question);
     console.log(this.questions);
+    this.showPreview=false
     alert('Question Added Successfully');
     this.question = {
       point: null,
@@ -228,11 +229,22 @@ export class AddQuizComponent implements OnInit {
     this.quizService.addQuiz(this.quiz).subscribe({
       next: (data) => {
         console.log(data);
+        this.quiz = {
+          user: {
+            id: parseInt(localStorage.getItem('id')),
+          },
+          difficulty: null,
+          duration: null,
+          subcategory: null,
+          questions: [],
+          tests: null,
+        };
       },
       error: (err) => {
         console.log(err);
       },
     });
+
   }
   noEmptySpaceAllowed(control: FormControl): ValidationErrors | null {
     const isOptiontextInvalid =

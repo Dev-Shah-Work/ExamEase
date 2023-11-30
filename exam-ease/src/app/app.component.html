@@ -8,5 +8,7 @@
   <ng-container *ngIf="isNavbarShowing()">
     <app-navbar></app-navbar>
   </ng-container>
-  <router-outlet></router-outlet>
+  <div [style.width]="'100%'">
+    <router-outlet></router-outlet>
+  </div>
 </div>
