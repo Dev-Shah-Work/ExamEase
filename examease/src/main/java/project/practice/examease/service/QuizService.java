@@ -1,6 +1,7 @@
 package project.practice.examease.service;
 
 import org.springframework.http.ResponseEntity;
+import project.practice.examease.dto.PortalStatDto;
 import project.practice.examease.dto.TestDto;
 import project.practice.examease.entity.Quiz;
 
@@ -16,4 +17,11 @@ public interface QuizService {
     ResponseEntity<List<Quiz>> getQuizes();
 
     ResponseEntity<String> addTest(TestDto requestBody);
+
+    ResponseEntity<PortalStatDto> getPortalStats();
+
+
+    ResponseEntity<List<Quiz>> getQuizesByPagination(int pageSize, int pageNumber,Integer subcategoryId);
+
+    ResponseEntity<Integer> getQuizCountBySubcategoryId(Integer id);
 }

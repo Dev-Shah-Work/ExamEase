@@ -20,18 +20,27 @@ export class UserService {
     return this.http.post(this.baseURL + '/auth/login', loginUser);
   }
   updateUser(data: any) {
-    return this.http.patch(this.baseURL + `/users/${localStorage.getItem("id")}`, data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-    
+    return this.http.patch(
+      this.baseURL + `/users/${localStorage.getItem('id')}`,
+      data
+    );
   }
-  getUser(){
-    return this.http.get(this.baseURL + `/users/${localStorage.getItem("id")}`,{
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+  getUser() {
+    return this.http.get(this.baseURL + `/users/${localStorage.getItem('id')}`);
+  }
+  getTestAnalytics() {
+    return this.http.get(
+      this.baseURL + `/users/test-analytics/${localStorage.getItem('id')}`
+    );
+  }
+  getQuizAnalytics() {
+    return this.http.get(
+      this.baseURL + `/users/quiz-analytics/${localStorage.getItem('id')}`  
+    );
+  }
+  getLeaderBoardStats(){
+    return this.http.get(
+      this.baseURL+`/users/leaderboard/stats`
+    )
   }
 }

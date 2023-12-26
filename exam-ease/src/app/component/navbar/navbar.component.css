@@ -1,0 +1,13 @@
+#navBar{
+    /* position: fixed; */
+    z-index: 1;
+    width: 100vw;
+    position: sticky;
+}
+ul>li>a{
+    color: #007FFF;
+    font-size: 1.1rem;
+}
+ul>li>a>i{
+    color: #007FFF;
+}

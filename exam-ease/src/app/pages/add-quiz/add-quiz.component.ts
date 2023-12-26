@@ -31,8 +31,9 @@ export class AddQuizComponent implements OnInit {
     });
     this.reactiveForm = new FormGroup({
       difficulty: new FormControl(null, Validators.required),
-      duration: new FormControl(null, Validators.required),
+      duration: new FormControl(null,[ Validators.required,Validators.min(10),Validators.max(180)]),
       subcategory: new FormControl(null, Validators.required),
+      quizName:new FormControl(null,Validators.required),
       question: new FormGroup(
         {
           point: new FormControl(null, Validators.required),
@@ -40,7 +41,7 @@ export class AddQuizComponent implements OnInit {
 
           options: new FormArray([
             new FormGroup({
-              optionText: new FormControl(null, this.noEmptySpaceAllowed),
+              optionText: new FormControl(null, [this.noEmptySpaceAllowed,Validators.required]),
             }),
           ]),
           answer: new FormControl(null),
@@ -54,6 +55,7 @@ export class AddQuizComponent implements OnInit {
   categories: any;
   subcategories: any;
   subcategory:String;
+  quizName:String
   reactiveForm: FormGroup;
   onQuestionPage: boolean = false;
   isMcq: boolean = null;
@@ -76,6 +78,7 @@ export class AddQuizComponent implements OnInit {
     difficulty: null,
     duration: null,
     subcategory: null,
+    quizName:null,
     questions: [],
     tests: null,
   };
@@ -147,12 +150,14 @@ export class AddQuizComponent implements OnInit {
     this.reactiveForm.markAsUntouched();
   }
   addOption() {
+    let fc = new FormControl(null, [
+      Validators.required,
+      this.noEmptySpaceAllowed,
+    ]);
+    fc.setErrors(null);
     (<FormArray>this.reactiveForm.get('question').get('options')).push(
       new FormGroup({
-        optionText: new FormControl(null, [
-          Validators.required,
-          this.noEmptySpaceAllowed,
-        ]),
+        optionText: fc,
       })
     );
   }
@@ -160,12 +165,15 @@ export class AddQuizComponent implements OnInit {
     this.onQuestionPage = true;
     this.quiz.difficulty = this.reactiveForm.get('difficulty').value;
     this.quiz.duration = this.reactiveForm.get('duration').value;
+    this.quiz.quizName=this.reactiveForm.get('quizName').value;
     this.quiz.subcategory = {
       id: this.reactiveForm.get('subcategory').value,
     };
     this.showPreview=true
     console.log(this.subcategories)
     this.subcategory=(this.subcategories.find(val=>{return val.id===this.quiz.subcategory.id})).subcategoryText
+    console.log(this.reactiveForm.value)
+    this.quizName=this.reactiveForm.value['quizName']
   }
   questionType(isMcq: boolean) {
     this.isMcq = isMcq;
@@ -233,6 +241,7 @@ export class AddQuizComponent implements OnInit {
           user: {
             id: parseInt(localStorage.getItem('id')),
           },
+          quizName:null,
           difficulty: null,
           duration: null,
           subcategory: null,
@@ -245,6 +254,15 @@ export class AddQuizComponent implements OnInit {
       },
     });
 
+  }
+  getDurationErrorMessage(){
+  if(this.reactiveForm.get('duration').hasError('min')){
+      return 'Minimum duration should be 10 mins'
+    }else if(this.reactiveForm.get('duration').hasError('max')){
+      return'Maximum duration should be 180 mins'
+    }else{
+      return ''
+    }
   }
   noEmptySpaceAllowed(control: FormControl): ValidationErrors | null {
     const isOptiontextInvalid =

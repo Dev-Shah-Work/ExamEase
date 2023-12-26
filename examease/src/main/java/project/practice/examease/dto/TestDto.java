@@ -19,7 +19,7 @@ public class TestDto {
     private int testScore;
     private Timestamp attemptTime;
     private Timestamp completionTime;
-    private List<Response> responses;
+    private List<ResponseDto> responses;
     private int quizTakerId;
     private int quizId;
 }

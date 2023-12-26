@@ -8,6 +8,14 @@
   <mat-card
     style="display: flex; justify-content: space-between; align-items: center"
   >
+    <mat-card-header>
+      <mat-card-title>
+        <span
+          style="font-family: 'Kdam Thmor Pro', sans-serif; font-size: larger"
+          >Add your Quiz</span
+        >
+      </mat-card-title>
+    </mat-card-header>
     <mat-card-content
       style="display: flex; justify-content: space-between; align-items: center"
     >
@@ -33,11 +41,15 @@
                 >Subcategory : {{ subcategory }}</mat-list-item
               >
               <mat-divider></mat-divider>
-              <mat-list-item>Difficulty :{{ quiz.difficulty }}</mat-list-item>
+              <mat-list-item
+                >Difficulty : {{ quiz.difficulty.toUpperCase() }}</mat-list-item
+              >
               <mat-divider></mat-divider>
               <mat-list-item style="background-color: lightgray"
                 >Duration : {{ quiz.duration }} Mins</mat-list-item
               >
+              <mat-divider></mat-divider>
+              <mat-list-item>Quiz Name : {{ quiz.quizName }} </mat-list-item>
             </mat-list>
             <ng-container *ngFor="let question of questions; let i = index">
               <mat-accordion>
@@ -88,14 +100,15 @@
                           border: 1.5px solid green;
                           border-radius: 2px;
                           font-family: 'Comic Neue', cursive;
-         
                         "
-                        ><span style="font-family: 'Kdam Thmor Pro', sans-serif"
-                          >Answer : </span
-                        ><p>
-                            {{ question.answerText }}
-                        </p></div
                       >
+                        <span style="font-family: 'Kdam Thmor Pro', sans-serif"
+                          >Answer :
+                        </span>
+                        <p>
+                          {{ question.answerText }}
+                        </p>
+                      </div>
                     </ng-container>
                     <ng-container *ngIf="question.isMcq">
                       <mat-list>
@@ -133,6 +146,26 @@
           </mat-card-content>
         </mat-card>
       </ng-container>
+      <ng-container *ngIf="!showPreview">
+        <mat-card
+          style="
+            overflow-y: auto;
+            max-height: 70vh;
+            width: 500px;
+            border-radius: 14px;
+            margin-right: 20px;
+            margin-left: 20px;
+          "
+        >
+          <mat-card-content style="height: 100%">
+            <img
+              src="../../../assets/addquiz.jpg"
+              alt=""
+              style="height: auto; width: 95%"
+            />
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
       <ng-container>
         <form
           [formGroup]="reactiveForm"
@@ -141,6 +174,7 @@
             max-height: 70vh;
             margin-left: 20px;
             margin-right: 20px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
           "
         >
           <ng-container *ngIf="!onQuestionPage">
@@ -187,6 +221,16 @@
                     placeholder="Type Duration in Mins"
                     type="number"
                     formControlName="duration"
+                  /> <ng-container *ngIf="reactiveForm.get('duration').invalid"> <mat-error>{{getDurationErrorMessage()}}</mat-error></ng-container>
+                </mat-form-field>
+                <br />
+                <mat-form-field class="example-full-width">
+                  <mat-label>Quiz Name</mat-label>
+                  <input
+                    matInput
+                    placeholder="Type your Quiz Name"
+                    type="text"
+                    formControlName="quizName"
                   />
                 </mat-form-field>
               </mat-card-content>
@@ -197,7 +241,8 @@
                 [disabled]="
                   reactiveForm.get('difficulty').invalid ||
                   reactiveForm.get('subcategory').invalid ||
-                  reactiveForm.get('duration').invalid
+                  reactiveForm.get('duration').invalid ||
+                  reactiveForm.get('quizName').invalid
                 "
               >
                 Next

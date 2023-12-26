@@ -17,13 +17,21 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "category_text")
     private String categoryText;
-
 
 //
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Subcategory> subcategories = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", categoryText='" + categoryText + '\'' +
+                '}';
+    }
 //
 }
 

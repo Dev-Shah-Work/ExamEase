@@ -13,6 +13,7 @@ import project.practice.examease.entity.Option;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDto {
+    private int id;
     private int score;
     private String responseText;
     private Option responseId;

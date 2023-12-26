@@ -30,6 +30,7 @@ export interface Quiz {
   difficulty: String;
   duration: Number;
   subcategory: SubcategoryId;
+  quizName:String
   user: UserId;
   tests: any;
   questions: Question[];
@@ -46,7 +47,7 @@ export interface Test {
   testScore: Number;
   attemptTime: Number;
   completionTime: Number;
-  responses: Response[];
+  responses: any;
   quizTakerId: Number;
   quizId: Number;
 }
