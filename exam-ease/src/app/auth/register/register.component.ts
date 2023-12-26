@@ -28,12 +28,13 @@ export class RegisterComponent implements OnInit {
         noSpaceAllowed,
       ]),
       confirmPassword:new FormControl(null,[Validators.required]),
-      phoneNo: new FormControl(null, [Validators.pattern('[0-9]{10}')]),
+      phoneNo: new FormControl(null, [Validators.pattern('[0-9]{10}'),Validators.maxLength(10)]),
       role: new FormControl('user'),
     });
   }
   reactiveForm: FormGroup;
   userDetails: AppUser;
+  hidePassword=true
   onSubmit() {
     let {confirmPassword}=this.reactiveForm.value;
     delete this.reactiveForm.value.confirmPassword;
@@ -63,5 +64,19 @@ export class RegisterComponent implements OnInit {
     }
     
 
+  }
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+}
+
+const passwordMatchValidator=(formGroup: FormGroup)=> {
+  const passwordControl = formGroup.get('password');
+  const confirmPasswordControl = formGroup.get('confirmPassword');
+
+  if (passwordControl.value !== confirmPasswordControl.value) {
+    confirmPasswordControl.setErrors({ passwordMismatch: true });
+  } else {
+    confirmPasswordControl.setErrors(null);
   }
 }

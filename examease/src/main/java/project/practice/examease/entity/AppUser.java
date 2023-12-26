@@ -1,11 +1,13 @@
 package project.practice.examease.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -28,13 +30,19 @@ public class AppUser {
     @JoinColumn(name = "quiz_taker_id_fk")
     private List<Response> responses;
 
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
     private List<Quiz> quizzes;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "quiz_taker_id_fk")
     private List<Test> tests;
 
-
+    @Override
+    public String toString() {
+        return "AppUser{" +
+//                ", quizzes=" + Arrays.toString(quizzes.toArray()) +
+                '}';
+    }
 }

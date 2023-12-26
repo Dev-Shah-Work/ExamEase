@@ -1,8 +1,10 @@
-#root{
-    background-image: url("../../../assets/bgimg2.jpg");
-    
-    height: 100vh;
-    width: 100vw;
+#rootDiv{
+  background: linear-gradient(
+    90deg,
+    rgba(14, 138, 207, 1) 0%,
+    rgba(38, 233, 179, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
   }
 #formDiv{
     -webkit-backdrop-filter: blur(10px);

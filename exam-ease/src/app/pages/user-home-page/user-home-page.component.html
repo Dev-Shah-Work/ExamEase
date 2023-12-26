@@ -1,1 +1,301 @@
-<p>user-home</p>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Montserrat:ital,wght@1,300&display=swap"
+  rel="stylesheet"
+/>
+<ng-container>
+  <div class="container">
+    <h2
+      style="
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: gray;
+        margin: 1rem;
+        font-family: 'Times New Roman', Times, serif;
+      "
+    >
+      Statistics
+    </h2>
+  </div>
+  <div
+    style="height: 18vh; margin: 1vh"
+    class="d-flex justify-content-evenly align-items-center"
+  >
+    <mat-card style="background-color: #f86868; padding: 1vh; width: 25%">
+      <mat-card-header
+        style="
+          font-size: 24px;
+          margin-bottom: 8px;
+          font-family: 'Inter', sans-serif;
+          font-weight: bolder;
+        "
+        >{{ portalStats.totalUsers }}+</mat-card-header
+      >
+      <mat-card-content
+        style="font-size: 16px; padding: 1vh; font-family: 'Inter', sans-serif"
+        >Users associated with our platform</mat-card-content
+      >
+    </mat-card>
+    <mat-card style="background-color: #63a9eb; padding: 1vh; width: 25%">
+      <mat-card-header
+        style="
+          font-size: 24px;
+          margin-bottom: 8px;
+          font-family: 'Inter', sans-serif;
+          font-weight: bolder;
+        "
+        >{{ portalStats.totalQuizes }}+</mat-card-header
+      >
+      <mat-card-content
+        style="font-size: 16px; padding: 1vh; font-family: 'Inter', sans-serif"
+        >Different quizzes to attempt from</mat-card-content
+      >
+    </mat-card>
+    <mat-card style="background-color: #00bf88; padding: 1vh; width: 25%">
+      <mat-card-header
+        style="
+          font-size: 24px;
+          margin-bottom: 8px;
+          font-family: 'Inter', sans-serif;
+          font-weight: bolder;
+        "
+        >{{ portalStats.totalTests }}+</mat-card-header
+      >
+      <mat-card-content
+        style="font-size: 16px; padding: 1vh; font-family: 'Inter', sans-serif"
+        >Times quizzes were attempted so far</mat-card-content
+      >
+    </mat-card>
+  </div>
+
+  <ng-container >
+    <div class="container">
+      <h2
+        style="
+          font-size: 1.75rem;
+          font-weight: 400;
+          color: gray;
+          margin: 4px;
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+          font-family: 'Times New Roman', Times, serif;
+        "
+      >
+        Your Test Analytics
+      </h2>
+      <ng-container *ngIf="false">
+        <p-dropdown
+          [options]="items"
+          [(ngModel)]="currentTestId"
+          placeholder="Select Test"
+          [virtualScroll]="true"
+          [virtualScrollItemSize]="38"
+          (onChange)="dropdownClicked()"
+        ></p-dropdown>
+      </ng-container>
+      <mat-form-field style="width: 40%;">
+        <mat-label>Select Test</mat-label>
+        <mat-select [(ngModel)]="currentTestId" >
+          <ng-container *ngFor="let item of items">
+            <mat-option [value]="item.value" (onSelectionChange)="dropdownClicked()" (click)="dropdownClicked()">{{ item.label }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      <ng-container *ngIf="showTestAnalytics">
+        <div class="row m-2">
+          <div
+            class="col-5 justify-content-center align-items-center d-flex card"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+          >
+            <p-chart
+              width="30vw"
+              height="45vh"
+              type="doughnut"
+              [data]="dataDoughnut"
+              [options]="doughnutOptions"
+            ></p-chart>
+          </div>
+          <div class="col-2"></div>
+          <div
+            class="col-5 justify-content-center align-items-center d-flex card"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+          >
+            <p-chart
+              type="bar"
+              [data]="dataHorizontalBar"
+              [options]="horizontalbarOptions"
+            ></p-chart>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center d-flex">
+          <div
+            class="col-6 justify-content-center align-items-center d-flex card m-2"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+          >
+            <p-chart
+              type="bar"
+              [data]="dataBar"
+              [options]="barOptions"
+            ></p-chart>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <!-- <div style="background-color: red;height: 1000px;">
+
+  </div> -->
+  <ng-container *ngIf="!isQuizEmpty">
+    <div class="container">
+      <h2
+        style="
+          font-size: 1.75rem;
+          font-weight: 400;
+          color: gray;
+          margin: 4px;
+          font-family: 'Times New Roman', Times, serif;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+        "
+      >
+        Analytics on how others performed on your quizzes
+      </h2>
+      <div class="d-flex justify-content-between" style="margin-bottom: 10px">
+        <ng-container *ngIf="false">
+          <p-dropdown
+            [options]="itemsQuiz"
+            [(ngModel)]="currentQuizId"
+            placeholder="Select Quiz"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+            [style.width]="true ? '100%' : '50%'"
+            panelStyleClass="minWidthOverride"
+            (onChange)="dropdownQuizClicked()"
+          ></p-dropdown>
+        </ng-container>
+        <mat-form-field style="width: 40%;">
+          <mat-label>Select Quiz</mat-label>
+          <mat-select
+            [(ngModel)]="currentQuizId"
+            (onChange)="dropdownQuizClicked()"
+          >
+            <ng-container *ngFor="let itemQuiz of itemsQuiz">
+              <mat-option [value]="itemQuiz.value" (onSelectionChange)="dropdownQuizClicked()" (click)="dropdownQuizClicked()">{{
+                itemQuiz.label
+              }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <ng-container *ngIf="showQuizAnalytics">
+          <h2
+            style="
+              font-size: 1.25rem;
+              font-weight: 400;
+              color: gray;
+              margin: 4px;
+              padding-right: 4rem;
+              font-family: 'Times New Roman', Times, serif;
+            "
+          >
+            Number of times it is attempted {{ totalAttempts }}
+          </h2>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="showQuizAnalytics">
+        <div class="row m-2">
+          <div
+            class="col-5 justify-content-center align-items-center d-flex card"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; padding: 1.2rem"
+          >
+            <ng-container *ngIf="totalAttempts !== 0">
+              <p-chart
+                type="bar"
+                [data]="dataQuizBarScore"
+                [options]="barOptions"
+              ></p-chart>
+            </ng-container>
+            <ng-container *ngIf="totalAttempts === 0">
+              <i
+                class="fa-solid fa-server"
+                style="font-size: 500%; color: gray"
+              ></i>
+              <p style="font-size: 1.25rem; margin: 1rem">
+                No attempts to show
+              </p>
+            </ng-container>
+          </div>
+          <div class="col-2"></div>
+          <div
+            class="col-5 justify-content-center align-items-center d-flex card"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; padding: 1.2rem"
+          >
+            <ng-container *ngIf="totalAttempts !== 0">
+              <p-chart
+                type="bar"
+                [data]="dataQuizBarDuration"
+                [options]="barOptions"
+              ></p-chart>
+            </ng-container>
+            <ng-container *ngIf="totalAttempts === 0">
+              <i
+                class="fa-solid fa-server"
+                style="font-size: 500%; color: gray"
+              ></i>
+              <p style="font-size: 1.25rem; margin: 1rem">
+                No attempts to show
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
+<div class="container-fluid" style="margin: 2rem">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8" style="">
+      <h2
+        style="
+          font-size: 1.75rem;
+          font-weight: 400;
+          color: gray;
+          margin: 2px;
+          font-family: 'Times New Roman', Times, serif;
+        "
+      >
+        Leaderboard
+      </h2>
+      <div class="card leaderboard" style="margin: 1.2rem">
+        <table>
+          <thead>
+            <tr>
+              <th>Sr No</th>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Total Score</th>
+              <th>Rank</th>
+            </tr>
+          </thead>
+          <tbody style="max-height: 50vh; overflow-y: scroll">
+            <ng-container *ngFor="let stat of leaderboardStats; let i = index">
+              <tr
+                [ngStyle]="{
+                  'background-color': userTd == stat.id ? '#d1f1de' : '#ffffff'
+                }"
+              >
+                <td>{{ i + 1 }}</td>
+                <td>{{ stat.id }}</td>
+                <td>{{ stat.fullname }}</td>
+                <td>{{ stat.totalscore }}</td>
+                <td>{{ stat.rank }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Quiz } from '../model';
+import { Quiz, Test } from '../model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,39 +10,44 @@ export class QuizService {
   constructor(private http: HttpClient) {}
   baseURL: string = 'http://localhost:8080/api/examease';
   getCategories() {
-    return this.http.get(this.baseURL + '/categories', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+    return this.http.get(this.baseURL + '/categories');
   }
   addQuiz(data: Quiz) {
-    return this.http.post(this.baseURL + '/quizes', data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+    return this.http.post(this.baseURL + '/quizes', data);
   }
-  getSubcategories(){
-    return this.http.get(this.baseURL+'/subcategories', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
+  getSubcategories() {
+    return this.http.get(this.baseURL + '/subcategories');
   }
 
-  getQuizes(){
-    return this.http.get(this.baseURL+'/quizes',{
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    } )
+  getQuizes() {
+    return this.http.get(this.baseURL + '/quizes');
   }
-  getQuizById(id:Number){
-    return this.http.get(this.baseURL+`/quizes/${id}`,{
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    } )
+  getQuizesByPagination(
+    pageSize: Number,
+    pageNumber: Number,
+    subcategoryId?: Number
+  ) {
+    if (subcategoryId != undefined || subcategoryId != null) {
+      return this.http.get(
+        this.baseURL +
+          `/quizes-pagination?pageNumber=${pageNumber}&pageSize=${pageSize}&subcategoryId=${subcategoryId}`
+      );
+    }
+    return this.http.get(
+      this.baseURL +
+        `/quizes-pagination?pageNumber=${pageNumber}&pageSize=${pageSize}`
+    );
+  }
+  getQuizById(id: Number) {
+    return this.http.get(this.baseURL + `/quizes/${id}`);
+  }
+  addTest(data: Test) {
+    return this.http.post(this.baseURL + `/tests`, data);
+  }
+  getPortalStats() {
+    return this.http.get(this.baseURL + '/portal-stats');
+  }
+  getQuizCountBySubcategoryId(subId:Number){
+    return this.http.get(this.baseURL+`/quizes/subcategory/count/${subId}`)
   }
 }

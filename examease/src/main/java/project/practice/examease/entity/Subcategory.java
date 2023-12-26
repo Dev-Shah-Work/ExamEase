@@ -29,12 +29,11 @@ public class Subcategory {
     @JsonIgnore
     private List<Quiz> quizzes;
 
-//    @Override
-//    public String toString() {
-//        return "Subcategory{" +
-//                "id=" + id +
-//                ", subcategoryText='" + subcategoryText + '\'' +
-//                ", quizzes=" + quizzes +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Subcategory{" +
+                "id=" + id +
+                ", subcategoryText='" + subcategoryText + '\'' +
+                '}';
+    }
 }

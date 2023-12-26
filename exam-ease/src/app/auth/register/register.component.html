@@ -1,167 +1,360 @@
-<div id="root" class="d-flex justify-content-center align-items-center">
-  <div id="formDiv" class="border border-secondary p-3 rounded-4">
-    <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label for="inputfirstname" class="form-label">First Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputfirstname"
-          aria-describedby="emailHelp"
-          formControlName="firstname"
-        />
-        <small
-          *ngIf="
-            reactiveForm.get('firstname').errors?.['required'] &&
-            reactiveForm.get('firstname').touched
-          "
-          style="color: red; font-size: small"
-          >firstname is required field</small
-        >
-        <small
-          *ngIf="
-            reactiveForm.get('firstname').errors?.['noSpaceAllowed']
-          "
-          style="color: red; font-size: small"
-          >Space not allowed</small
-        >
-      </div>
-      <div class="mb-3">
-        <label for="inputlastname" class="form-label">Last Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputlastname"
-          aria-describedby="emailHelp"
-          formControlName="lastname"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="inputEmail" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="inputEmail"
-          aria-describedby="emailHelp"
-          formControlName="email"
-        />
-        <small
-          *ngIf="
-            reactiveForm.get('email').errors?.['required'] &&
+<ng-container *ngIf="false">
+  <div id="root" class="d-flex justify-content-center align-items-center">
+    <div id="formDiv" class="border border-secondary p-3 rounded-4">
+      <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="inputfirstname" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputfirstname"
+            aria-describedby="emailHelp"
+            formControlName="firstname"
+          />
+          <small
+            *ngIf="
+              reactiveForm.get('firstname').errors?.['required'] &&
+              reactiveForm.get('firstname').touched
+            "
+            style="color: red; font-size: small"
+            >firstname is required field</small
+          >
+          <small
+            *ngIf="
+              reactiveForm.get('firstname').errors?.['noSpaceAllowed']
+            "
+            style="color: red; font-size: small"
+            >Space not allowed</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="inputlastname" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputlastname"
+            aria-describedby="emailHelp"
+            formControlName="lastname"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="inputEmail" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="inputEmail"
+            aria-describedby="emailHelp"
+            formControlName="email"
+          />
+          <small
+            *ngIf="
+              reactiveForm.get('email').errors?.['required'] &&
+              reactiveForm.get('email').touched
+            "
+            style="color: red; font-size: small"
+            >Email is required field</small
+          >
+          <small
+            *ngIf="
+            reactiveForm.get('email').errors?.['email'] &&
             reactiveForm.get('email').touched
           "
-          style="color: red; font-size: small"
-          >Email is required field</small
-        >
-        <small
-          *ngIf="
-          reactiveForm.get('email').errors?.['email'] &&
-          reactiveForm.get('email').touched
-        "
-          style="color: red; font-size: small"
-          >Invalid Email Format</small
-        >
-      </div>
-      <div class="mb-3">
-        <label for="inputPassword" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="inputPassword"
-          formControlName="password"
-        />
-        <small
-          *ngIf="
-            reactiveForm.get('password').errors?.['required'] &&
-            reactiveForm.get('password').touched
+            style="color: red; font-size: small"
+            >Invalid Email Format</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="inputPassword"
+            formControlName="password"
+          />
+          <small
+            *ngIf="
+              reactiveForm.get('password').errors?.['required'] &&
+              reactiveForm.get('password').touched
+            "
+            style="color: red; font-size: small"
+            >Password is required field</small
+          >
+          <small
+            *ngIf="
+            reactiveForm.get('password').errors?.['noSpaceAllowed']
           "
-          style="color: red; font-size: small"
-          >Password is required field</small
-        >
-        <small
-          *ngIf="
-          reactiveForm.get('password').errors?.['noSpaceAllowed']
-        "
-          style="color: red; font-size: small"
-          >Space not allowed</small
-        >
-        <small
-          *ngIf="
-      reactiveForm.get('password').errors?.['minlength']
-    "
-          style="color: red; font-size: small"
-          >Minimum length of 7 required</small
-        >
-      </div>
-      <div class="mb-3">
-        <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputConfirmPassword"
-          formControlName="confirmPassword"
-        />
-        <small
-          *ngIf="
-            reactiveForm.get('confirmPassword').errors?.['required'] &&
-            reactiveForm.get('confirmPassword').touched
+            style="color: red; font-size: small"
+            >Space not allowed</small
+          >
+          <small
+            *ngIf="
+        reactiveForm.get('password').errors?.['minlength']
+      "
+            style="color: red; font-size: small"
+            >Minimum length of 7 required</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="inputConfirmPassword" class="form-label"
+            >Confirm Password</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="inputConfirmPassword"
+            formControlName="confirmPassword"
+          />
+          <small
+            *ngIf="
+              reactiveForm.get('confirmPassword').errors?.['required'] &&
+              reactiveForm.get('confirmPassword').touched
+            "
+            style="color: red; font-size: small"
+            >Confirm Password is required field</small
+          >
+        </div>
+        <div class="mb-3">
+          <label for="inputphoneNo" class="form-label">Phone Number</label>
+          <input
+            class="form-control"
+            id="inputphoneNo"
+            formControlName="phoneNo"
+          />
+          <small
+            *ngIf="
+            reactiveForm.get('phoneNo').errors?.['noSpaceAllowed']
           "
-          style="color: red; font-size: small"
-          >Confirm Password is required field</small
-        >
-      </div>
-      <div class="mb-3">
-        <label for="inputphoneNo" class="form-label">Phone Number</label>
-        <input
-          class="form-control"
-          id="inputphoneNo"
-          formControlName="phoneNo"
-        />
-        <small
-          *ngIf="
-          reactiveForm.get('phoneNo').errors?.['noSpaceAllowed']
+            style="color: red; font-size: small"
+            >Space not allowed</small
+          >
+          <small
+            *ngIf="
+          reactiveForm.get('phoneNo').errors?.['maxlength']
         "
-          style="color: red; font-size: small"
-          >Space not allowed</small
-        >
-        <small
-          *ngIf="
-        reactiveForm.get('phoneNo').errors?.['maxlength']
-      "
-          style="color: red; font-size: small"
-          >Max length of 10 digit allowed</small
-        >
-        <small
-          *ngIf="
-        reactiveForm.get('phoneNo').errors?.['pattern']
-      "
-          style="color: red; font-size: small"
-          >Type 10 digit number</small
-        >
-      </div>
-      <div class="mb-3" style="display: none;">
-        <select
-          class="p-2 border-2 border-gray-500 rounded-3 focus:outline-none container-fluid"
-          name="role"
-          formControlName="role"
-        >
-          <option value="user"></option>
-        </select>
-      </div>
+            style="color: red; font-size: small"
+            >Max length of 10 digit allowed</small
+          >
+          <small
+            *ngIf="
+          reactiveForm.get('phoneNo').errors?.['pattern']
+        "
+            style="color: red; font-size: small"
+            >Type 10 digit number</small
+          >
+        </div>
+        <div class="mb-3" style="display: none">
+          <select
+            class="p-2 border-2 border-gray-500 rounded-3 focus:outline-none container-fluid"
+            name="role"
+            formControlName="role"
+          >
+            <option value="user"></option>
+          </select>
+        </div>
 
-      <button type="submit" class="btn btn-primary" [disabled]="reactiveForm.invalid">Register</button>
-    </form>
-    <br />
-    <div
-      class="d-flex justify-content-between align-items-center"
-      id="custom-link"
-    >
-      <a routerLink="/" style="text-decoration: none"
-        >Already a User? Click here to Login</a
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="reactiveForm.invalid"
+        >
+          Register
+        </button>
+      </form>
+      <br />
+      <div
+        class="d-flex justify-content-between align-items-center"
+        id="custom-link"
       >
-      <button class="btn btn-outline-primary">
-        <a routerLink="/" style="text-decoration: none">Go Back</a>
-      </button>
+        <a routerLink="/" style="text-decoration: none"
+          >Already a User? Click here to Login</a
+        >
+        <button class="btn btn-outline-primary">
+          <a routerLink="/" style="text-decoration: none">Go Back</a>
+        </button>
+      </div>
     </div>
+  </div>
+</ng-container>
+<div
+  class="d-flex flex-column justify-content-center align-items-center"
+  style="height: 100vh"
+  id="rootDiv"
+>
+  <h2 style="font-family: 'Times New Roman', Times, serif; font-size: xx-large">
+    Register Yourself
+  </h2>
+
+  <div class="d-flex">
+    <mat-card style="height: fit-content;margin: 0.25rem;">
+      <mat-card-content>
+        <i
+          class="fa-solid fa-arrow-left"
+          style="color: aqua; font-size: 2rem"
+          routerLink="/"
+        ></i>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <form
+          [formGroup]="reactiveForm"
+          (ngSubmit)="onSubmit()"
+          class="d-flex flex-column"
+          style="width: 50vw"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Type here" formControlName="firstname" />
+          </mat-form-field>
+          <small
+            *ngIf="
+                      reactiveForm.get('firstname').errors?.['required'] &&
+                      reactiveForm.get('firstname').touched
+                    "
+            style="color: red; font-size: smaller"
+            >Firstname is required field</small
+          >
+          <small
+            *ngIf="
+                    reactiveForm.get('firstname').errors?.['noSpaceAllowed']
+                  "
+            style="color: red; font-size: small"
+            >Space not allowed</small
+          >
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Type Here" formControlName="lastname" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input
+              matInput
+              placeholder="Type your email"
+              type="email"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <small
+            *ngIf="
+                          reactiveForm.get('email').errors?.['required'] &&
+                          reactiveForm.get('email').touched
+                        "
+            style="color: red; font-size: small"
+            >Email is required field</small
+          >
+          <small
+            *ngIf="
+                      reactiveForm.get('email').errors?.['email'] &&
+                      reactiveForm.get('email').touched
+                    "
+            style="color: red; font-size: small"
+            >Invalid Email Format</small
+          >
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Type your password"
+              type="password"
+              formControlName="password"
+            />
+          </mat-form-field>
+          <small
+            *ngIf="
+                      reactiveForm.get('password').errors?.['required'] &&
+                      reactiveForm.get('password').touched
+                    "
+            style="color: red; font-size: small"
+            >Password is required field</small
+          >
+          <small
+            *ngIf="
+                    reactiveForm.get('password').errors?.['noSpaceAllowed']
+                  "
+            style="color: red; font-size: small"
+            >Space not allowed</small
+          >
+          <small
+            *ngIf="
+                reactiveForm.get('password').errors?.['minlength']
+              "
+            style="color: red; font-size: small"
+            >Minimum length of 7 required</small
+          >
+          <mat-form-field appearance="outline" style="display: flex; align-items: center;">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              placeholder="Type password again"
+              type="{{ hidePassword ? 'password' : 'text' }}"
+              formControlName="confirmPassword"
+              style="flex: 1;"
+            />
+            <button mat-icon-button (click)="togglePasswordVisibility()">
+              <i class="fa-solid fa-eye" [class.fa-eye-slash]="hidePassword"></i>
+            </button>
+          </mat-form-field>
+          
+          <small
+            *ngIf="
+                          reactiveForm.get('confirmPassword').errors?.['required'] &&
+                          reactiveForm.get('confirmPassword').touched
+                        "
+            style="color: red; font-size: small"
+            >Confirm Password is required field</small
+          >
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              placeholder="Type your Phone Number"
+              formControlName="phoneNo"
+              type="tel"
+              maxlength="10"
+              minlength="10"
+              pattern="[0-9]*"
+              appNumericOnly
+            />
+          </mat-form-field>
+          <small
+            *ngIf="
+                    reactiveForm.get('phoneNo').errors?.['noSpaceAllowed']
+                  "
+            style="color: red; font-size: small"
+            >Space not allowed</small
+          >
+          <small
+            *ngIf="
+                  reactiveForm.get('phoneNo').errors?.['maxlength']
+                "
+            style="color: red; font-size: small"
+            >Max length of 10 digit allowed</small
+          >
+          <small
+            *ngIf="
+                  reactiveForm.get('phoneNo').errors?.['pattern']
+                "
+            style="color: red; font-size: small"
+            >Type 10 digit number</small
+          >
+          <div class="mb-3" style="display: none">
+            <select
+              class="p-2 border-2 border-gray-500 rounded-3 focus:outline-none container-fluid"
+              name="role"
+              formControlName="role"
+            >
+              <option value="user"></option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="reactiveForm.invalid"
+          >
+            Register
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

@@ -1,48 +1,160 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Montserrat:ital,wght@1,300&display=swap"
+  rel="stylesheet"
+/>
 <div class="container-fluid" id="root">
-  <div class="row p-2">
-    <div class="col-3">
-      <mat-card style="background-color: #00A9FF">
-        <mat-card-content>Simple card</mat-card-content>
+  <div class="row p-2" style="height: 100vh">
+
+    <div class="col-2">
+      <mat-card
+        style="
+          background-color: #f2f7fd;
+          border: 3px solid gray;
+          border-radius: 20px;
+          
+        "
+      >
+        <mat-card-content style="padding-left: 35px">
+          <span class="base-timer__label">
+            {{ formatTimeLeft(timeLeft) }}
+          </span></mat-card-content
+        >
       </mat-card>
     </div>
-    <div class="col-7" style="max-height: 87vh; overflow-y: scroll">
+    <div
+      class="col-7"
+      style="max-height: 98vh; overflow-y: scroll; font-size: larger"
+    >
       <form [formGroup]="responseForm">
-          <ng-container *ngFor="let questionGroup of responseForm.get('responses')['controls']; let i = index">
-            <mat-card style="background-color: #A0E9FF">
-              <mat-card-content>{{i+1}}:- {{ questions[i].questionText }}</mat-card-content>
+        <ng-container
+          *ngFor="
+            let questionGroup of responseForm.get('responses')['controls'];
+            let i = index
+          "
+        >
+          <mat-card style="background-color: #f5f5f5">
+            <mat-card-content
+              >{{ i + 1 }}:- {{ questions[i].questionText }}</mat-card-content
+            >
+          </mat-card>
+          <mat-divider></mat-divider>
+          <ng-container>
+            <mat-card style="background-color: #f5fefd">
+              <mat-card-content style="font-size: 1.2rem;">
+                <ng-container *ngIf="questions[i].mcq">
+                  <mat-radio-group
+                    aria-label="Select an option"
+                    [formControl]="questionGroup.get('responseId.id')"
+                    (change)="updateScore(i, questionGroup)"
+                  >
+                    <ng-container *ngFor="let option of questions[i].options">
+                      <mat-radio-button value="{{ option.id }}">{{
+                        option.optionText
+                      }}</mat-radio-button>
+                    </ng-container>
+                  </mat-radio-group>
+                </ng-container>
+                <ng-container *ngIf="!questions[i].mcq">
+                  <mat-form-field>
+                    <textarea
+                      matInput
+                      placeholder="Type your answer here"
+                      [formControl]="questionGroup.get('responseText')"
+                      (change)="updateScore(i, questionGroup)"
+                    ></textarea>
+                  </mat-form-field>
+                </ng-container>
+              </mat-card-content>
             </mat-card>
-            <mat-divider></mat-divider>
-            <ng-container>
-              <mat-card style="background-color: #A0E9FF">
-                <mat-card-content>
-                  <ng-container *ngIf="questions[i].mcq">
-                    <mat-radio-group aria-label="Select an option">
-                      <ng-container *ngFor="let option of questions[i].options">
-                        <mat-radio-button value="{{ option.id }}">{{
-                          option.optionText
-                        }}</mat-radio-button>
-                      </ng-container>
-                    </mat-radio-group>
-                  </ng-container>
-                  <ng-container *ngIf="!questions[i].mcq">
-                    <mat-form-field>
-                      <textarea
-                        matInput
-                        placeholder="Type your answer here"
-                      ></textarea>
-                    </mat-form-field>
-                  </ng-container>
-                </mat-card-content>
-              </mat-card>
-            </ng-container>
-            <br />
           </ng-container>
+          <br />
+        </ng-container>
+        <!-- <button type="submit" (click)="onSubmit()">Click</button> -->
+       
       </form>
     </div>
-    <div class="col-2">
-      <mat-card style="background-color: #00A9FF">
-        <mat-card-content>Simple card</mat-card-content>
+    <div class="col-3" style="display: flex; flex-direction: column;justify-content: space-between;align-items: center;">
+      <button
+      class="btn"
+      style="
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        border: 3px solid gray;
+        border-radius: 100px;
+        margin: 10px;
+        width: 90%;
+        height: 8%;
+        font-size: 1.5rem;
+        background-color: #d1f1de;
+
+      "
+      type="submit"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
+      <mat-card>
+        <mat-card-content>
+          <mat-accordion>
+            <mat-expansion-panel
+              (opened)="panelOpenState = true"
+              (closed)="panelOpenState = false"
+            >
+              <mat-expansion-panel-header>
+             
+                  <mat-panel-title
+                    style="
+                      font-size: 1.3rem;
+                      font-weight: normal;
+                      padding: 1rem;
+                    "
+                  >
+                    Quiz Details
+                  </mat-panel-title>
+                  <mat-panel-description style="padding: 1rem">
+                    Click to
+                    {{ panelOpenState ? "Hide Details" : "Show Details" }}
+                  </mat-panel-description>
+                
+              </mat-expansion-panel-header>
+              <ul style="font-weight: normal; font-size: 1.1rem">
+                <li style="padding-bottom: 1.5px">
+                  Read each question carefully and understand it thoroughly.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  Complete the quiz before the timer expires.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  Select only one option for multiple-choice questions.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  For subjective questions, provide well-thought-out answers in
+                  the text area.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  Double-check your responses before submitting the quiz.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  Ensure a stable internet connection during the quiz.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  Do not refresh the page or navigate away from the quiz while
+                  attempting it.
+                </li>
+                <li style="padding-bottom: 1.5px">
+                  If you encounter technical issues, contact support
+                  immediately.
+                </li>
+                <!-- Add more guidelines as needed -->
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-card-content>
       </mat-card>
     </div>
+    
   </div>
 </div>

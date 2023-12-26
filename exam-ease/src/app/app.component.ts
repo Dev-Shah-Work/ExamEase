@@ -19,6 +19,6 @@ export class AppComponent implements OnInit {
   }
   isNavbarShowing(){
     const role = localStorage.getItem('role');
-    return role != null;
+    return role != null && !(this.router.url.includes('/show-quiz'))
   }
 }

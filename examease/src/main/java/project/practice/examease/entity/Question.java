@@ -25,7 +25,7 @@ public class Question {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
     private List<Option> options;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id_fk")
     private List<Response> responses;
     @OneToOne

@@ -8,11 +8,16 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 import project.practice.examease.dto.AppUserDto;
+import project.practice.examease.dto.LeaderBoardDTO;
+import project.practice.examease.dto.QuizAnalyticDto;
+import project.practice.examease.dto.TestAnalyticDto;
 import project.practice.examease.entity.AppUser;
 import project.practice.examease.service.AppUserService;
 import project.practice.examease.util.ResponseUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @CrossOrigin
 @RequiredArgsConstructor
@@ -59,4 +64,33 @@ public class UserController {
         }
         return ResponseUtil.getResponseEntity("Something went wrong in Controller Implementation",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @GetMapping("/users/test-analytics/{id}")
+    public ResponseEntity<List<TestAnalyticDto>> getTestAnalytics(@PathVariable("id")int id){
+        try{
+            return appUserService.getTestAnalytics(id);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return  new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @GetMapping("/users/quiz-analytics/{id}")
+    public ResponseEntity<List<QuizAnalyticDto>> getQuizAnalytics(@PathVariable("id")int id){
+        try{
+            return appUserService.getQuizAnalytics(id);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @GetMapping("/users/leaderboard/stats")
+    public ResponseEntity<List<LeaderBoardDTO>> getLeaderBoardStats(){
+        try{
+            return appUserService.getLeaderBoardStats();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 }

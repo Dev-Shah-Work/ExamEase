@@ -19,50 +19,63 @@ export class ProfileDetailsComponent implements OnInit {
   }
   ngOnInit() {
     this.userService.getUser().subscribe({
-      next:(data)=>{
-        this.userInformation=data;
+      next: (data) => {
+        this.userInformation = data;
         console.log(this.userInformation);
         this.reactiveForm = new FormGroup({
-          firstname: new FormControl(this.userInformation.firstname, [Validators.required, noSpaceAllowed]),
+          firstname: new FormControl(this.userInformation.firstname, [
+            Validators.required,
+            noSpaceAllowed,
+          ]),
           lastname: new FormControl(this.userInformation.lastname),
-          email: new FormControl(this.userInformation.email, [Validators.required, Validators.email]),
-          phoneNo: new FormControl(this.userInformation.phoneNo, [Validators.pattern('[0-9]{10}')]),
-         
+          email: new FormControl(this.userInformation.email, [
+            Validators.required,
+            Validators.email,
+          ]),
+          phoneNo: new FormControl(this.userInformation.phoneNo, [
+            Validators.pattern('[0-9]{10}'),
+          ]),
         });
-        
-      },error:(err:HttpErrorResponse)=>{
-        window.alert(err.error.message)
-      }
-    })
-   
+      },
+      error: (err: HttpErrorResponse) => {
+        window.alert(err.error.message);
+      },
+    });
   }
   reactiveForm: FormGroup;
-  userInformation:any;
+  userInformation: any;
   userDetails: any;
   onUpdateDetails() {
-  
     this.userDetails = this.reactiveForm.value;
     console.log(this.userDetails);
- 
-      var email = this.userDetails.email.toLowerCase();
-      this.userDetails.email = email;
-      console.log(this.userDetails);
-      this.userService.updateUser(this.userDetails).subscribe({
-        next: (data) => {
-          console.log(data);
-          if (data) {
-            alert('Update Successful');
-            this.doUpdate=false;
-          }
-        },
-        error: (err: HttpErrorResponse) => {
-          window.alert(err.error.message);
-        },
-      });
-   
+
+    var email = this.userDetails.email.toLowerCase();
+    this.userDetails.email = email;
+    console.log(this.userDetails);
+    this.userService.updateUser(this.userDetails).subscribe({
+      next: (data) => {
+        console.log(data);
+        if (data) {
+          alert('Update Successful');
+          this.userService.getUser().subscribe({
+            next: (data) => {
+              this.userInformation = data;
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+          this.doUpdate = false;
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        window.alert(err.error.message);
+      },
+    });
   }
 
   goBackClicked() {
     this.doUpdate = false;
+    this.reactiveForm.reset(this.reactiveForm.value);
   }
 }
